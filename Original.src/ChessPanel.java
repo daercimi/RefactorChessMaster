@@ -22,6 +22,15 @@ public class ChessPanel
      * Create a new ChessPanel object.
      */
     public ChessPanel(){
+        init();
+    }
+     // ----------------------------------------------------------
+    /**
+     * Init GUI components
+     * 
+     * 
+     */
+    public void init(){
         this.setLayout( new BorderLayout() );
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
