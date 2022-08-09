@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import luegoVeo.ChessPanel;
 // -------------------------------------------------------------------------
 /**
  * Shows the GUI for the Chess game.
