@@ -1,4 +1,3 @@
-package pieces;
 import javax.swing.ImageIcon;
 
 import luegoVeo.ChessGameBoard;
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 /**
  * Represents a Knight game piece.
  *
- * @author Ben Katz (bakatz)
- * @author Myles David II (davidmm2)
- * @author Danielle Bushrow (dbushrow)
- * @version 2010.11.17
+ * @author Leonardo Torres
+ * @author Leonardo Torres
+ * @author Leonardo Torres
+ * @version 2022.08.02
  */
 public class Knight
     extends ChessGamePiece{
@@ -102,21 +101,20 @@ public class Knight
      */
     @Override
     public ImageIcon createImageByPieceType(){
-        if ( getColorOfPiece() == ChessGamePiece.WHITE ){
-            return new ImageIcon(
-                getClass().getResource("../ChessImages/WhiteKnight.gif")
-            );            
-        }
-        else if ( getColorOfPiece() == ChessGamePiece.BLACK ){
-            return new ImageIcon(
-                getClass().getResource("../ChessImages/BlackKnight.gif")
-            );            
-        }
-        else
-        {
-            return new ImageIcon(
-                getClass().getResource("../ChessImages/default-Unassigned.gif")
-            );            
+        switch( getColorOfPiece() ){
+            case ChessGamePiece.WHITE:
+                return new ImageIcon(
+                    getClass().getResource("chessImages/WhiteKnight.gif")
+                );
+            case ChessGamePiece.BLACK:
+                return new ImageIcon(
+                   getClass().getResource("chessImages/BlackKnight.gif")
+                );
+            default:
+                return new ImageIcon(
+                    getClass().getResource("chessImages/default-Unassigned.gif")
+                ); 
         }
     }
 }
+>>>>>>> master:Original.src/Knight.java
