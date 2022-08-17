@@ -72,4 +72,4 @@ public class Bishop extends ChessGamePiece{
         }
     }
 }
->>>>>>> master:Original.src/Bishop.java
+

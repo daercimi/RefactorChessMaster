@@ -93,4 +93,4 @@ public class King
         }
     }
 }
->>>>>>> master:Original.src/King.java
+

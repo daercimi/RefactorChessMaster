@@ -117,4 +117,4 @@ public class Knight
         }
     }
 }
->>>>>>> master:Original.src/Knight.java
+

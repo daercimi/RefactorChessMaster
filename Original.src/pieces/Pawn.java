@@ -144,4 +144,4 @@ public class Pawn
         }
     }
 }
->>>>>>> master:Original.src/Pawn.java
+

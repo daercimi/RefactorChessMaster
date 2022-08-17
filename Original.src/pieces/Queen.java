@@ -81,4 +81,4 @@ public class Queen
         }
     }
 }
->>>>>>> master:Original.src/Queen.java
+
