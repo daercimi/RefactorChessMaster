@@ -1,4 +1,4 @@
-package gui.Board;
+package gui.board;
 
 import business.service.moves.IPieceMoveService;
 import business.service.moves.impl.PieceMoveServiceImpl;
@@ -82,6 +82,25 @@ public class ChessGameBoard extends JPanel {
     }
 
     /**
+     * Gets all the white game pieces on the board.
+     *
+     * @return ArrayList<GamePiece> the pieces
+     */
+    public ArrayList<ChessGamePiece> getAllWhitePieces() {
+        ArrayList<ChessGamePiece> whitePieces = new ArrayList<ChessGamePiece>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessCells[i][j].getPieceOnSquare() != null
+                        && chessCells[i][j].getPieceOnSquare().getColorOfPiece().getColor() ==
+                        ColorOfPiece.WHITE) {
+                    whitePieces.add(chessCells[i][j].getPieceOnSquare());
+                }
+            }
+        }
+        return whitePieces;
+    }
+
+    /**
      * Gets all the black pieces on the board
      *
      * @return ArrayList<GamePiece> the pieces
@@ -109,6 +128,41 @@ public class ChessGameBoard extends JPanel {
         chessCells = new BoardSquare[8][8];
         initializeBoard();
         pieceMoveService = new PieceMoveServiceImpl();
+    }
+
+    /**
+     * Clears the board of all items, including any pieces left over in the
+     * graveyard, and all old game logs.
+     *
+     * @param addAfterReset if true, the board will add the BoardSquares
+     *                      back to the board, if false it will simply reset everything and leave
+     *                      the board blank.
+     */
+    public void resetBoard(boolean addAfterReset) {
+        chessCells = new BoardSquare[8][8];
+        this.removeAll();
+        if (getParent() instanceof ChessPanel) {
+            ((ChessPanel) getParent()).getGraveyard(1).clearGraveyard();
+            ((ChessPanel) getParent()).getGraveyard(2).clearGraveyard();
+            ((ChessPanel) getParent()).getGameLog().clearLog();
+        }
+        for (int i = 0; i < chessCells.length; i++) {
+            for (int j = 0; j < chessCells[0].length; j++) {
+                chessCells[i][j] = new BoardSquare(i, j, null);
+                if ((i + j) % 2 == 0) {
+                    chessCells[i][j].setBackground(Color.WHITE);
+                } else {
+                    chessCells[i][j].setBackground(Color.BLACK);
+                }
+                if (addAfterReset) {
+                    chessCells[i][j].addMouseListener(listener);
+                    this.add(chessCells[i][j]);
+                }
+            }
+        }
+        repaint();
+        //revalidate();
+        // only the combination of these two calls work...*shrug*
     }
 
     /**
@@ -158,4 +212,74 @@ public class ChessGameBoard extends JPanel {
         }
     }
 
+    /**
+     * Clears the colors on the board.
+     */
+    public void clearColorsOnBoard() {
+        for (int i = 0; i < chessCells.length; i++) {
+            for (int j = 0; j < chessCells[0].length; j++) {
+                if ((i + j) % 2 == 0) {
+                    chessCells[i][j].setBackground(Color.WHITE);
+                } else {
+                    chessCells[i][j].setBackground(Color.BLACK);
+                }
+            }
+        }
+    }
+
+    /**
+     * Listens for clicks on BoardSquares.
+     *
+     * @author Ben Katz (bakatz)
+     * @author Danielle Bushrow (dbushrow)
+     * @author Myles David (davidmm2)
+     * @version 2010.11.16
+     */
+    private class BoardListener
+            implements MouseListener {
+        /**
+         * Do an action when the left mouse button is clicked.
+         *
+         * @param e the event from the listener
+         */
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1 &&
+                    getParent() instanceof ChessPanel) {
+                ((ChessPanel) getParent()).getGameEngine()
+                        .determineActionFromSquareClick(e);
+            }
+        }
+
+        /**
+         * Unused method.
+         *
+         * @param e the mouse event from the listener
+         */
+        public void mouseEntered(MouseEvent e) { /* not used */
+        }
+
+        /**
+         * Unused method.
+         *
+         * @param e the mouse event from the listener
+         */
+        public void mouseExited(MouseEvent e) { /* not used */
+        }
+
+        /**
+         * Unused method.
+         *
+         * @param e the mouse event from the listener
+         */
+        public void mousePressed(MouseEvent e) { /* not used */
+        }
+
+        /**
+         * Unused method.
+         *
+         * @param e the mouse event from the listener
+         */
+        public void mouseReleased(MouseEvent e) { /* not used */
+        }
+    }
 }

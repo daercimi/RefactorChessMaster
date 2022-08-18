@@ -1,4 +1,4 @@
-package gui.Board;
+package gui.board;
 
 import business.pieces.ChessGamePiece;
 
@@ -49,4 +49,48 @@ public class BoardSquare extends JPanel {
         // to redraw...
     }
 
+    /**
+     * Gets the row number.
+     *
+     * @return int the row number
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Gets the column number.
+     *
+     * @return int the column number
+     */
+    public int getColumn() {
+        return col;
+    }
+
+    /**
+     * Gets the piece on this square
+     *
+     * @return GamePiece the piece
+     */
+    public ChessGamePiece getPieceOnSquare() {
+        return piece;
+    }
+
+    /**
+     * Sets the piece on this square
+     *
+     * @param p the piece
+     */
+    public void setPieceOnSquare(ChessGamePiece p) {
+        piece = p;
+        updateImage();
+    }
+
+    /**
+     * Clears this square, removing the icon and the piece.
+     */
+    public void clearSquare() {
+        piece = null;
+        removeAll();
+    }
 }
