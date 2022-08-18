@@ -1,6 +1,5 @@
 package business.services.moves.cardinal;
 
-import business.services.moves.cardinal.ICalculateCardinalKnightMove;
 import gui.ChessGameBoard;
 import utils.ColorOfPiece;
 import utils.IsEnemy;

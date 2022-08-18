@@ -1,8 +1,9 @@
 package business.services.moves.cardinal;
 
+import java.io.Serializable;
 import utils.ColorOfPiece;
 
-public abstract class CalculateCardinalMoves implements ICalculateMove {
+public abstract class CalculateCardinalMoves implements ICalculateMove, Serializable {
   private int pieceRow;
     private int pieceColumn;
     private ColorOfPiece colorOfPiece;

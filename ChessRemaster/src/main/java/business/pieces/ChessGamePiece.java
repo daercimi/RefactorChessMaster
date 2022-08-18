@@ -30,7 +30,7 @@ public abstract class ChessGamePiece implements Serializable {
      * The list of possible moves for this piece. Updated when actions involving
      * this piece occur. (created, moved, selected, etc)
      */
-    protected List<String> possibleMoves;
+    protected transient List<String> possibleMoves;
     /**
      * The game piece's row.
      */
@@ -71,7 +71,7 @@ public abstract class ChessGamePiece implements Serializable {
      * @param skipMoveGeneration if true, moves will not be generated in the constructor
      * @param pieceColor         either GamePiece.BLACK, WHITE, or UNASSIGNED
      */
-    public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor, boolean skipMoveGeneration) {
+    protected ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor, boolean skipMoveGeneration) {
         this.skipMoveGeneration = skipMoveGeneration;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
         this.resourceOfPiece = new ResourceOfPiece(pieceColor);

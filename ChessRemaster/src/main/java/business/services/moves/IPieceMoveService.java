@@ -2,8 +2,9 @@ package business.services.moves;
 
 import business.pieces.ChessGamePiece;
 import gui.ChessGameBoard;
+import java.io.Serializable;
 
-public interface IPieceMoveService {
+public interface IPieceMoveService extends Serializable {
 
     boolean move(ChessGameBoard board, ChessGamePiece piece, int row, int col);
 

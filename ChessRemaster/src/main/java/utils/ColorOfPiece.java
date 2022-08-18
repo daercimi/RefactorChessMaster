@@ -1,6 +1,8 @@
 package utils;
 
-public  class ColorOfPiece {
+import java.io.Serializable;
+
+public  class ColorOfPiece implements Serializable {
 
     /**
      * Represents a black piece as an int
@@ -15,7 +17,7 @@ public  class ColorOfPiece {
      */
     public static final int UNASSIGNED = -1;
 
-    private int color;
+    private final int color;
 
     public ColorOfPiece(int pieceColor) {
         this.color = pieceColor;

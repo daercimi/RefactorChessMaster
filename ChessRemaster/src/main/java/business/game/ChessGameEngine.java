@@ -67,12 +67,12 @@ public class ChessGameEngine implements Serializable {
      */
     public boolean playerHasLegalMoves(int playerNum) {
         ArrayList<ChessGamePiece> pieces;
-        if (playerNum == 1) {
-            pieces = board.getAllWhitePieces();
-        } else if (playerNum == 2) {
-            pieces = board.getAllBlackPieces();
-        } else {
-            return false;
+        switch (playerNum) {
+            case 1 -> pieces = (ArrayList) board.getAllWhitePieces();
+            case 2 -> pieces = (ArrayList) board.getAllBlackPieces();
+            default -> {
+                return false;
+            }
         }
         for (ChessGamePiece currPiece : pieces) {
             if (pieceMoveService.hasLegalMoves(board,currPiece)) {

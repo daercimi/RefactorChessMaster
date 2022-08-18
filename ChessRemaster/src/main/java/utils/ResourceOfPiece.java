@@ -1,6 +1,8 @@
 package utils;
 
-public class ResourceOfPiece implements IResourceOfPiece{
+import java.io.Serializable;
+
+public class ResourceOfPiece implements IResourceOfPiece, Serializable{
 
     int color;
 

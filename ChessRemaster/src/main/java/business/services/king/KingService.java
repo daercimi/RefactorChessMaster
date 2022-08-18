@@ -3,14 +3,15 @@ package business.services.king;
 import business.services.moves.IPieceMoveService;
 import business.pieces.ChessGamePiece;
 import gui.ChessGameBoard;
+import java.io.Serializable;
 import utils.ColorOfPiece;
 
 import java.util.ArrayList;
 
-public class KingService implements IKingService{
+public class KingService implements IKingService, Serializable{
 
-    private ChessGameBoard board;
-    private IPieceMoveService pieceMoveService;
+    private final ChessGameBoard board;
+    private final IPieceMoveService pieceMoveService;
 
     public KingService(ChessGameBoard board,IPieceMoveService pieceMoveService) {
         this.board = board;

@@ -26,7 +26,7 @@ public class CalculateSouthMoves extends CalculateCardinalMoves {
                        break;
                    }
                } else {
-                   break;
+                   count=numMoves;
                }
            }
        }

@@ -2,13 +2,14 @@ package business.services.moves.pieces;
 
 import business.services.moves.cardinal.CalculateCardinalMoves;
 import gui.ChessGameBoard;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PieceMove {
+public class PieceMove implements Serializable {
 
-    List<CalculateCardinalMoves> calculateCardinalMoves;
+    private final List<CalculateCardinalMoves> calculateCardinalMoves;
 
     public PieceMove(List<CalculateCardinalMoves> calculateCardinalMoves) {
         this.calculateCardinalMoves = calculateCardinalMoves;

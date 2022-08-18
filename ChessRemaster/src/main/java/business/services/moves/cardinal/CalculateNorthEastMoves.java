@@ -25,10 +25,9 @@ public class CalculateNorthEastMoves extends CalculateCardinalMoves {
                      count++;
                  } else if (IsEnemy.invoke(board, getPieceRow() - i, getPieceColumn() + i,getColorOfPiece().getColor())) {
                      moves.add((getPieceRow() - i) + "," + (getPieceColumn() + i));
-                     count++;
                      break;
                  } else {
-                     break;
+                     count=numMoves;
                  }
              }
          }

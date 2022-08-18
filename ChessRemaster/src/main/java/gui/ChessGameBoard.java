@@ -1,6 +1,5 @@
 package gui;
 
-import business.services.moves.IPieceMoveService;
 import business.services.moves.impl.PieceMoveServiceImpl;
 import utils.ColorOfPiece;
 import business.pieces.*;
@@ -11,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * The panel that represents the Chess game board. Contains a few methods that
@@ -73,7 +72,7 @@ public final class ChessGameBoard extends JPanel {
      *
      * @return ArrayList<ChessGamePiece> the pieces
      */
-    public ArrayList<ChessGamePiece> getAllWhitePieces() {
+    public List<ChessGamePiece> getAllWhitePieces() {
         ArrayList<ChessGamePiece> whitePieces = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -92,7 +91,7 @@ public final class ChessGameBoard extends JPanel {
      *
      * @return ArrayList<ChessGamePiece> the pieces
      */
-    public ArrayList<ChessGamePiece> getAllBlackPieces() {
+    public List<ChessGamePiece> getAllBlackPieces() {
         ArrayList<ChessGamePiece> blackPieces = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -228,15 +227,19 @@ public final class ChessGameBoard extends JPanel {
          */
         @Override
         public void mouseEntered(MouseEvent e) {
+            // Do nothing on mouse entered
         }
         @Override
         public void mouseExited(MouseEvent e) { 
+            // Do nothing on mouse exited
         }
         @Override
         public void mousePressed(MouseEvent e) {
+            // Do nothing on mouse pressed
         }
         @Override
         public void mouseReleased(MouseEvent e) {
+            // Do nothing on mouse released
         }
     }
 }

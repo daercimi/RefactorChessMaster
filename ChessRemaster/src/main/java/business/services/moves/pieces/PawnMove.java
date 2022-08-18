@@ -1,13 +1,14 @@
 package business.services.moves.pieces;
 
 import gui.ChessGameBoard;
+import java.io.Serializable;
 import utils.ColorOfPiece;
 import utils.IsOnScreen;
 
 import java.util.ArrayList;
 import utils.IsEnemy;
 
-public class PawnMove  implements  IPawnMove {
+public class PawnMove implements IPawnMove, Serializable{
 
     @Override
     public ArrayList<String> calculatePossibleMoves(ChessGameBoard board, int row, int column, int color, boolean isNotMoved) {
