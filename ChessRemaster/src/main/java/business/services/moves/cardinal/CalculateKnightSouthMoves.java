@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class CalculateKnightSouthMoves implements ICalculateCardinalKnightMove {
 
-    private int pieceRow;
-    private int pieceColumn;
-    private ColorOfPiece colorOfPiece;
+    private final int pieceRow;
+    private final int pieceColumn;
+    private final ColorOfPiece colorOfPiece;
 
     public CalculateKnightSouthMoves(int pieceRow, int pieceColumn, ColorOfPiece colorOfPiece) {
         this.pieceRow = pieceRow;

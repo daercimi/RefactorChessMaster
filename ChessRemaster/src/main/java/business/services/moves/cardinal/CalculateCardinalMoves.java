@@ -7,7 +7,7 @@ public abstract class CalculateCardinalMoves implements ICalculateMove {
     private int pieceColumn;
     private ColorOfPiece colorOfPiece;
 
-    public CalculateCardinalMoves(int pieceRow, int pieceColumn, ColorOfPiece colorOfPiece) {
+    protected CalculateCardinalMoves(int pieceRow, int pieceColumn, ColorOfPiece colorOfPiece) {
         this.pieceRow = pieceRow;
         this.pieceColumn = pieceColumn;
         this.colorOfPiece = colorOfPiece;

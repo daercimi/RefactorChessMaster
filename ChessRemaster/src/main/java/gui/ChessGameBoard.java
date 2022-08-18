@@ -4,12 +4,12 @@ import business.services.moves.IPieceMoveService;
 import business.services.moves.impl.PieceMoveServiceImpl;
 import utils.ColorOfPiece;
 import business.pieces.*;
-import gui.ChessPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -17,11 +17,9 @@ import java.util.ArrayList;
  * The panel that represents the Chess game board. Contains a few methods that
  * allow other classes to access the physical board.
  */
-public class ChessGameBoard extends JPanel {
+public final class ChessGameBoard extends JPanel {
     private BoardSquare[][] chessCells;
-    private BoardListener listener;
-    private IPieceMoveService pieceMoveService;
-
+    private final BoardListener listener;
 
     public BoardSquare[][] getCells() {
         return chessCells;
@@ -73,10 +71,10 @@ public class ChessGameBoard extends JPanel {
     /**
      * Gets all the white game pieces on the board.
      *
-     * @return ArrayList<GamePiece> the pieces
+     * @return ArrayList<ChessGamePiece> the pieces
      */
     public ArrayList<ChessGamePiece> getAllWhitePieces() {
-        ArrayList<ChessGamePiece> whitePieces = new ArrayList<ChessGamePiece>();
+        ArrayList<ChessGamePiece> whitePieces = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (chessCells[i][j].getPieceOnSquare() != null
@@ -92,10 +90,10 @@ public class ChessGameBoard extends JPanel {
     /**
      * Gets all the black pieces on the board
      *
-     * @return ArrayList<GamePiece> the pieces
+     * @return ArrayList<ChessGamePiece> the pieces
      */
     public ArrayList<ChessGamePiece> getAllBlackPieces() {
-        ArrayList<ChessGamePiece> blackPieces = new ArrayList<ChessGamePiece>();
+        ArrayList<ChessGamePiece> blackPieces = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (chessCells[i][j].getPieceOnSquare() != null
@@ -116,7 +114,7 @@ public class ChessGameBoard extends JPanel {
         listener = new BoardListener();
         chessCells = new BoardSquare[8][8];
         initializeBoard();
-        pieceMoveService = new PieceMoveServiceImpl();
+        new PieceMoveServiceImpl();
     }
 
     /**
@@ -130,10 +128,10 @@ public class ChessGameBoard extends JPanel {
     public void resetBoard(boolean addAfterReset) {
         chessCells = new BoardSquare[8][8];
         this.removeAll();
-        if (getParent() instanceof ChessPanel) {
-            ((ChessPanel) getParent()).getGraveyard(1).clearGraveyard();
-            ((ChessPanel) getParent()).getGraveyard(2).clearGraveyard();
-            ((ChessPanel) getParent()).getGameLog().clearLog();
+        if (getParent() instanceof ChessPanel chessPanel) {
+            chessPanel.getGraveyard(1).clearGraveyard();
+            chessPanel.getGraveyard(2).clearGraveyard();
+            chessPanel.getGameLog().clearLog();
         }
         for (int i = 0; i < chessCells.length; i++) {
             for (int j = 0; j < chessCells[0].length; j++) {
@@ -162,31 +160,21 @@ public class ChessGameBoard extends JPanel {
         for (int i = 0; i < chessCells.length; i++) {
             for (int j = 0; j < chessCells[0].length; j++) {
                 ChessGamePiece pieceToAdd;
-                if (i == 1) // black pawns
-                {
-                    pieceToAdd = new Pawn(this, i, j, ColorOfPiece.BLACK);
-                } else if (i == 6) // white pawns
-                {
-                    pieceToAdd = new Pawn(this, i, j, ColorOfPiece.WHITE);
-                } else if (i == 0 || i == 7) // main rows
-                {
-                    int colNum =
-                            i == 0 ? ColorOfPiece.BLACK : ColorOfPiece.WHITE;
-                    if (j == 0 || j == 7) {
-                        pieceToAdd = new Rook(this, i, j, colNum);
-                    } else if (j == 1 || j == 6) {
-                        pieceToAdd = new Knight(this, i, j, colNum);
-                    } else if (j == 2 || j == 5) {
-
-                        pieceToAdd = new Bishop(this, i, j, colNum);
-
-                    } else if (j == 3) {
-                        pieceToAdd = new King(this, i, j, colNum);
-                    } else {
-                        pieceToAdd = new Queen(this, i, j, colNum);
+                switch (i) {
+                    case 1 -> pieceToAdd = new Pawn(this, i, j, ColorOfPiece.BLACK);
+                    case 6 -> pieceToAdd = new Pawn(this, i, j, ColorOfPiece.WHITE);
+                    case 0, 7 -> {
+                        int colNum =
+                                i == 0 ? ColorOfPiece.BLACK : ColorOfPiece.WHITE;
+                        pieceToAdd = switch (j) {
+                            case 0, 7 -> new Rook(this, i, j, colNum);
+                            case 1, 6 -> new Knight(this, i, j, colNum);
+                            case 2, 5 -> new Bishop(this, i, j, colNum);
+                            case 3 -> new King(this, i, j, colNum);
+                            default -> new Queen(this, i, j, colNum);
+                        };
                     }
-                } else {
-                    pieceToAdd = null;
+                    default -> pieceToAdd = null;
                 }
                 chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
                 if ((i + j) % 2 == 0) {
@@ -219,17 +207,18 @@ public class ChessGameBoard extends JPanel {
      * Listens for clicks on BoardSquares.
      */
     private class BoardListener
-            implements MouseListener {
+            implements MouseListener, Serializable {
         
         /**
          * Do an action when the left mouse button is clicked.
          *
          * @param e the event from the listener
          */
+        @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1 &&
-                    getParent() instanceof ChessPanel) {
-                ((ChessPanel) getParent()).getGameEngine()
+                    getParent() instanceof ChessPanel chessPanel) {
+                chessPanel.getGameEngine()
                         .determineActionFromSquareClick(e);
             }
         }
@@ -237,13 +226,17 @@ public class ChessGameBoard extends JPanel {
         /**
          * Unused methods
          */
-        public void mouseEntered(MouseEvent e) { /* not used */
+        @Override
+        public void mouseEntered(MouseEvent e) {
         }
-        public void mouseExited(MouseEvent e) { /* not used */
+        @Override
+        public void mouseExited(MouseEvent e) { 
         }
-        public void mousePressed(MouseEvent e) { /* not used */
+        @Override
+        public void mousePressed(MouseEvent e) {
         }
-        public void mouseReleased(MouseEvent e) { /* not used */
+        @Override
+        public void mouseReleased(MouseEvent e) {
         }
     }
 }

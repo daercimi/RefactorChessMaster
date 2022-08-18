@@ -1,15 +1,11 @@
 package business.services.moves.impl;
 
-import business.pieces.Pawn;
-import business.pieces.Queen;
-import business.services.moves.IPieceMoveService;
 import business.game.ChessGameEngine;
 import business.pieces.ChessGamePiece;
 import business.services.moves.IPieceMoveService;
 import gui.ChessGraveyard;
 import gui.ChessPanel;
 import gui.ChessGameBoard;
-import utils.ColorOfPiece;
 import utils.IsEnemy;
 import utils.IsOnScreen;
 
@@ -80,6 +76,7 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
      * player's King to be put in check (which is an illegal move).
      *
      * @param board the game board to check on
+     * @param piece
      * @param row   the row to move to
      * @param col   the column to move to
      * @return boolean true if the move is safe, false if it is not
@@ -111,6 +108,7 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
      * Shows the legal move locations for this GamePiece.
      *
      * @param board The board to show the move locations on
+     * @param piece
      */
     @Override
     public void showLegalMoves(ChessGameBoard board, ChessGamePiece piece) {
@@ -137,6 +135,7 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
      * Determines if this piece has legal moves to make.
      *
      * @param board the game board to check
+     * @param piece
      * @return true if there are legal moves, false if there are not
      */
     @Override

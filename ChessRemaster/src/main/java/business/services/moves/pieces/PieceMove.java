@@ -16,9 +16,8 @@ public class PieceMove {
 
     public List<String> calculateCardinalMoves(ChessGameBoard board, int numMoves){
         List<String> allMoves = new ArrayList<>();
-        calculateCardinalMoves.forEach(x -> {
-            allMoves.addAll(this.calculateCardinalMove(x,board,numMoves));
-        });
+        calculateCardinalMoves.forEach(x -> allMoves.addAll(this.calculateCardinalMove(x,board,numMoves))
+        );
         return allMoves;
     }
 

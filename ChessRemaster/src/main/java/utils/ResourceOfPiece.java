@@ -10,17 +10,12 @@ public class ResourceOfPiece implements IResourceOfPiece{
 
     @Override
     public String resourceByType(String pieceType) {
-        String PATH = "/ChessImages";
-        if ( color == ColorOfPiece.WHITE ){
-            return PATH+"/White"+pieceType+".gif";           
-        }
-        else if ( color == ColorOfPiece.BLACK ){
-            return PATH+"/Black"+pieceType+".gif";           
-        }
-        else
-        {
-            return PATH+"/default-Unassigned.gif";     
-        }    
+        String path = "/ChessImages";
+        return switch (color) {
+            case ColorOfPiece.WHITE -> path+"/White"+pieceType+".gif";
+            case ColorOfPiece.BLACK -> path+"/Black"+pieceType+".gif";
+            default -> path+"/default-Unassigned.gif";
+        };
     }
     
 }

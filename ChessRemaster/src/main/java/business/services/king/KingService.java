@@ -23,7 +23,7 @@ public class KingService implements IKingService{
      * @return ArrayList<GamePiece> the list of attackers
      */
     private ArrayList<ChessGamePiece> getCurrentAttackers(ChessGamePiece piece) {
-        ArrayList<ChessGamePiece> attackers = new ArrayList<ChessGamePiece>();
+        ArrayList<ChessGamePiece> attackers = new ArrayList<>();
         int enemyColor =
                 (piece.getColorOfPiece().getColor() == ColorOfPiece.BLACK)
                         ? ColorOfPiece.WHITE
@@ -48,11 +48,12 @@ public class KingService implements IKingService{
     /**
      * Determines if this King is checked.
      *
+     * @param piece
      * @return true if checked, false if not checked
      */
     @Override
     public boolean isChecked(ChessGamePiece piece){
-        return this.getCurrentAttackers(piece).size() > 0;
+        return !this.getCurrentAttackers(piece).isEmpty();
     }
 }
 

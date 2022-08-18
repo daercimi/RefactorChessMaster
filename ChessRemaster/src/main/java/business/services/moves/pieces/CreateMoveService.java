@@ -8,6 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateMoveService {
+    
+    private CreateMoveService() {
+        
+    }
 
     public static List<CalculateCardinalMoves> kingOrQeenMove(int pieceRow, int pieceColumn, ColorOfPiece color){
         List<CalculateCardinalMoves> addAllMove = new ArrayList<>();

@@ -3,6 +3,7 @@ package business.pieces;
 import business.services.moves.pieces.PieceMove;
 import utils.ColorOfPiece;
 import gui.ChessGameBoard;
+import java.io.Serializable;
 import utils.ResourceOfPiece;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public abstract class ChessGamePiece {
+public abstract class ChessGamePiece implements Serializable {
     protected boolean skipMoveGeneration;
     protected ColorOfPiece colorOfPiece;
     protected ImageIcon pieceImage;
@@ -47,7 +48,7 @@ public abstract class ChessGamePiece {
      * @param col        column of the GamePiece
      * @param pieceColor either GamePiece.WHITE, BLACK, or UNASSIGNED
      */
-    public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor) {
+    protected ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor) {
         skipMoveGeneration = false;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
         this.resourceOfPiece = new ResourceOfPiece(pieceColor);

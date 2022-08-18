@@ -2,15 +2,16 @@ package business.services.moves.pieces;
 
 import gui.ChessGameBoard;
 import utils.ColorOfPiece;
-//import util.IsEnemy;
 import utils.IsOnScreen;
 
 import java.util.ArrayList;
+import utils.IsEnemy;
 
 public class PawnMove  implements  IPawnMove {
 
+    @Override
     public ArrayList<String> calculatePossibleMoves(ChessGameBoard board, int row, int column, int color, boolean isNotMoved) {
-        ArrayList<String> moves = new ArrayList<String>();
+        ArrayList<String> moves = new ArrayList<>();
         if (IsOnScreen.invoke(row, column)) {
             int currRow =
                     color == ColorOfPiece.WHITE
@@ -21,10 +22,8 @@ public class PawnMove  implements  IPawnMove {
             // check for normal moves
             while (count <= maxIter) { // only loop while we have open slots and have not passed our
                 // limit
-                if (IsOnScreen.invoke(currRow, column)
-                        //TODO: getCell of board
-                        /*&& board.getCell(currRow,
-                        column).getPieceOnSquare() == null*/) {
+                if (IsOnScreen.invoke(currRow, column) && board.getCell(currRow,
+                        column).getPieceOnSquare() == null) {
                     moves.add(currRow + "," + column);
                 } else {
                     break;
@@ -35,8 +34,7 @@ public class PawnMove  implements  IPawnMove {
                                 : (currRow + 1);
                 count++;
             }
-            // check for enemy capture points
-            /* 
+
             if (color == ColorOfPiece.WHITE) {
                 if (IsEnemy.invoke(board, row - 1, column - 1,color)) {
                     moves.add((row - 1) + "," + (column - 1));
@@ -52,7 +50,7 @@ public class PawnMove  implements  IPawnMove {
                     moves.add((row + 1) + "," + (column + 1));
                 }
             }
-            */
+            
         }
         return moves;
     }

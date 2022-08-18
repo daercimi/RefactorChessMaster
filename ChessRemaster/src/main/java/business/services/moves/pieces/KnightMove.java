@@ -20,9 +20,7 @@ public class KnightMove {
         ArrayList<String> moves = new ArrayList<>();
         if (IsOnScreen.invoke(row, column)) {
 
-            calculateCardinalKnightMoves.forEach(cardinalKnightMove -> {
-                moves.addAll(cardinalKnightMove.invoke(board));
-            });
+            calculateCardinalKnightMoves.forEach(cardinalKnightMove -> moves.addAll(cardinalKnightMove.invoke(board)));
 
         }
         return moves;

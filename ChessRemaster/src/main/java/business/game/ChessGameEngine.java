@@ -14,6 +14,7 @@ import gui.ChessGameBoard;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -25,14 +26,14 @@ import java.util.ArrayList;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessGameEngine {
+public class ChessGameEngine implements Serializable {
 
     private ChessGamePiece currentPiece;
     private boolean firstClick;
     private int currentPlayer;
-    private ChessGameBoard board;
-    private IPieceMoveService pieceMoveService;
-    private IKingService kingService;
+    private final ChessGameBoard board;
+    private final IPieceMoveService pieceMoveService;
+    private final IKingService kingService;
     private King king1;
     private King king2;
 
@@ -133,17 +134,11 @@ public class ChessGameEngine {
         }
         if (currentPlayer == 2) // black player
         {
-            if (currentPiece.getColorOfPiece().getColor() == ColorOfPiece.BLACK) {
-                return true;
-            }
-            return false;
+            return currentPiece.getColorOfPiece().getColor() == ColorOfPiece.BLACK;
         } else
         // white player
         {
-            if (currentPiece.getColorOfPiece().getColor() == ColorOfPiece.WHITE) {
-                return true;
-            }
-            return false;
+            return currentPiece.getColorOfPiece().getColor() == ColorOfPiece.WHITE;
         }
     }
 
@@ -182,7 +177,6 @@ public class ChessGameEngine {
             reset();
         } else {
             board.resetBoard(false);
-            // System.exit(0);
         }
     }
 

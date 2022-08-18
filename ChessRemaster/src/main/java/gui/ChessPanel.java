@@ -1,7 +1,6 @@
 package gui;
 
 import business.game.ChessGameEngine;
-import gui.ChessGameBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +9,12 @@ import java.awt.*;
  * The main panel of the Chess game.
  */
 public class ChessPanel extends JPanel {
-    private ChessMenuBar menuBar;
-    private ChessGameBoard gameBoard;
-    private ChessGameLog gameLog;
-    private ChessGraveyard playerOneGraveyard;
-    private ChessGraveyard playerTwoGraveyard;
-    private ChessGameEngine gameEngine;
+    private final ChessMenuBar menuBar;
+    private final ChessGameBoard gameBoard;
+    private final ChessGameLog gameLog;
+    private final ChessGraveyard playerOneGraveyard;
+    private final ChessGraveyard playerTwoGraveyard;
+    private final ChessGameEngine gameEngine;
 
     /**
      * Create a new ChessPanel object.
@@ -70,12 +69,10 @@ public class ChessPanel extends JPanel {
      * @return ChessGraveyard the graveyard requested
      */
     public ChessGraveyard getGraveyard(int whichPlayer) {
-        if (whichPlayer == 1) {
-            return playerOneGraveyard;
-        } else if (whichPlayer == 2) {
-            return playerTwoGraveyard;
-        } else {
-            return null;
-        }
+        return switch (whichPlayer) {
+            case 1 -> playerOneGraveyard;
+            case 2 -> playerTwoGraveyard;
+            default -> null;
+        };
     }
 }
