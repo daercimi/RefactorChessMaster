@@ -1,0 +1,251 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Bishop {
+  + Bishop(ChessGameBoard, int, int, int): 
+  + createImageByPieceType(): ImageIcon
+  + calculatePossibleMoves(ChessGameBoard): void
+}
+class BoardListener {
+  + BoardListener(): 
+  + mouseExited(MouseEvent): void
+  + mouseClicked(MouseEvent): void
+  + mousePressed(MouseEvent): void
+  + mouseEntered(MouseEvent): void
+  + mouseReleased(MouseEvent): void
+}
+class BoardSquare {
+  + BoardSquare(int, int, ChessGamePiece): 
+  - row: int
+  + clearSquare(): void
+  - updateImage(): void
+   pieceOnSquare: ChessGamePiece
+   column: int
+   row: int
+}
+class CalculateCardinalMoves {
+  + CalculateCardinalMoves(int, int, ColorOfPiece): 
+  - pieceColumn: int
+  - pieceRow: int
+  - colorOfPiece: ColorOfPiece
+   pieceColumn: int
+   pieceRow: int
+   colorOfPiece: ColorOfPiece
+}
+class CalculateEastMoves {
+  + CalculateEastMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateNorthEastMoves {
+  + CalculateNorthEastMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateNorthMoves {
+  + CalculateNorthMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateNorthWestMoves {
+  + CalculateNorthWestMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateSouthEastMoves {
+  + CalculateSouthEastMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateSouthMoves {
+  + CalculateSouthMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateSouthWestMoves {
+  + CalculateSouthWestMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class CalculateWestMoves {
+  + CalculateWestMoves(int, int, ColorOfPiece): 
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+class ChessGameBoard {
+  + ChessGameBoard(): 
+  + getCell(int, int): BoardSquare
+  + resetBoard(boolean): void
+  + initializeBoard(): void
+  + clearColorsOnBoard(): void
+  - validateCoordinates(int, int): boolean
+  + clearCell(int, int): void
+   allBlackPieces: ArrayList<ChessGamePiece>
+   allWhitePieces: ArrayList<ChessGamePiece>
+   cells: BoardSquare[][]
+}
+class ChessGameEngine {
+  + ChessGameEngine(ChessGameBoard): 
+  - currentPlayer: int
+  - checkGameConditions(): void
+  - askUserToPlayAgain(String): void
+  + playerHasLegalMoves(int): boolean
+  + isKingInCheck(boolean): boolean
+  + reset(): void
+  - nextTurn(): void
+  + determineActionFromSquareClick(MouseEvent): void
+  - selectedPieceIsValid(): boolean
+  + determineGameLost(): int
+   currentPlayer: int
+}
+class ChessGameLog {
+  + ChessGameLog(): 
+  + clearLog(): void
+  + addToLog(String): void
+   lastLog: String
+}
+class ChessGamePiece {
+  + ChessGamePiece(ChessGameBoard, int, int, int): 
+  + ChessGamePiece(ChessGameBoard, int, int, int, boolean): 
+  # colorOfPiece: ColorOfPiece
+  # skipMoveGeneration: boolean
+  # possibleMoves: List<String>
+  + calculatePossibleMoves(ChessGameBoard): void
+  + setPieceLocation(int, int): void
+  + createImageByPieceType(): ImageIcon
+  + toString(): String
+   skipMoveGeneration: boolean
+   possibleMoves: List<String>
+   colorOfPiece: ColorOfPiece
+   column: int
+   image: ImageIcon
+   row: int
+}
+class ChessGraveyard {
+  + ChessGraveyard(String): 
+  + addPiece(ChessGamePiece): void
+  + clearGraveyard(): void
+}
+class ChessMain {
+  + ChessMain(): 
+  + main(String[]): void
+}
+class ChessMenuBar {
+  + ChessMenuBar(): 
+  - toggleGraveyardHandler(): void
+  - aboutHandler(): void
+  - exitHandler(): void
+  - toggleGameLogHandler(): void
+  - restartHandler(): void
+}
+class ChessPanel {
+  + ChessPanel(): 
+  - gameLog: ChessGameLog
+  - gameEngine: ChessGameEngine
+  - gameBoard: ChessGameBoard
+  + getGraveyard(int): ChessGraveyard
+   gameBoard: ChessGameBoard
+   gameLog: ChessGameLog
+   gameEngine: ChessGameEngine
+}
+class ColorOfPiece {
+  + ColorOfPiece(int): 
+  - color: int
+   color: int
+}
+class CreateMoveService {
+  + CreateMoveService(): 
+  + kingOrQeenMove(int, int, ColorOfPiece): List<CalculateCardinalMoves>
+  + bishopMove(int, int, ColorOfPiece): List<CalculateCardinalMoves>
+  + rookMove(int, int, ColorOfPiece): List<CalculateCardinalMoves>
+}
+interface ICalculateMove << interface >> {
+  + invoke(ChessGameBoard, int): ArrayList<String>
+}
+interface IKingService << interface >> {
+  + isChecked(ChessGamePiece): boolean
+}
+interface IPawnMove << interface >> {
+  + calculatePossibleMoves(ChessGameBoard, int, int, int, boolean): ArrayList<String>
+}
+interface IPieceMoveService << interface >> {
+  + canMove(ChessGameBoard, ChessGamePiece, int, int): boolean
+  + move(ChessGameBoard, ChessGamePiece, int, int): boolean
+  + testMoveForKingSafety(ChessGameBoard, ChessGamePiece, int, int): boolean
+  + showLegalMoves(ChessGameBoard, ChessGamePiece): void
+  + hasLegalMoves(ChessGameBoard, ChessGamePiece): boolean
+}
+interface IResourceOfPiece << interface >> {
+  + resourceByType(String): String
+}
+class IsEnemy {
+  + IsEnemy(): 
+  + invoke(ChessGameBoard, int, int, int): boolean
+}
+class IsOnScreen {
+  + IsOnScreen(): 
+  + invoke(int, int): boolean
+}
+class King {
+  + King(ChessGameBoard, int, int, int): 
+  + calculatePossibleMoves(ChessGameBoard): void
+  + createImageByPieceType(): ImageIcon
+}
+class KingService {
+  + KingService(ChessGameBoard, IPieceMoveService): 
+  + isChecked(ChessGamePiece): boolean
+  - getCurrentAttackers(ChessGamePiece): ArrayList<ChessGamePiece>
+}
+class Knight {
+  + Knight(ChessGameBoard, int, int, int): 
+  + calculatePossibleMoves(ChessGameBoard): void
+  + createImageByPieceType(): ImageIcon
+}
+class KnightMove {
+  + KnightMove(): 
+  + calculatePossibleMoves(ChessGameBoard, int, int): List<String>
+}
+class MenuListener {
+  + MenuListener(): 
+  + actionPerformed(ActionEvent): void
+}
+class Pawn {
+  + Pawn(ChessGameBoard, int, int, int): 
+  - notMoved: boolean
+  + createImageByPieceType(): ImageIcon
+  + calculatePossibleMoves(ChessGameBoard): void
+   notMoved: boolean
+}
+class PawnMove {
+  + PawnMove(): 
+  + calculatePossibleMoves(ChessGameBoard, int, int, int, boolean): ArrayList<String>
+}
+class PieceMove {
+  + PieceMove(List<CalculateCardinalMoves>): 
+  + calculateCardinalMoves(ChessGameBoard, int): List<String>
+  + calculateCardinalMove(CalculateCardinalMoves, ChessGameBoard, int): List<String>
+}
+class PieceMoveServiceImpl {
+  + PieceMoveServiceImpl(): 
+  + canMove(ChessGameBoard, ChessGamePiece, int, int): boolean
+  + hasLegalMoves(ChessGameBoard, ChessGamePiece): boolean
+  + showLegalMoves(ChessGameBoard, ChessGamePiece): void
+  + move(ChessGameBoard, ChessGamePiece, int, int): boolean
+  + testMoveForKingSafety(ChessGameBoard, ChessGamePiece, int, int): boolean
+}
+class Queen {
+  + Queen(ChessGameBoard, int, int, int): 
+  + calculatePossibleMoves(ChessGameBoard): void
+  + createImageByPieceType(): ImageIcon
+}
+class ResourceOfPiece {
+  + ResourceOfPiece(int): 
+  + resourceByType(String): String
+}
+class Rook {
+  + Rook(ChessGameBoard, int, int, int): 
+  + calculatePossibleMoves(ChessGameBoard): void
+  + createImageByPieceType(): ImageIcon
+}
+
+BoardListener            +-[#820000,plain]-  ChessGameBoard          
+ChessGameBoard          "1" *-[#595959,plain]-> "listener\n1" BoardListener           
+ChessGameBoard           -[#595959,dashed]->  BoardListener           : "«create»"
+ChessMenuBar             -[#595959,dashed]->  MenuListener            : "«create»"
+MenuListener             +-[#820000,plain]-  ChessMenuBar            
+@enduml
