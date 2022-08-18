@@ -1,4 +1,5 @@
 # RefactorChessMaster
+
 Project to refactor an existing open source Java application according to OOP principles.
 
 I when say "refactor" I mean REPLACE. I thought originally that the code could be modified to make it to conform to OOP. However, having attempted to do so I can see that its impossible. The source code is entirely procedural, in fact, it's basically just "C in Java" as some well known persons like to say. You can't change anything without breaking the whole program. Therefore...
@@ -15,3 +16,5 @@ When you download the source files the java classes need to go into the root pac
 Note on authenticity of the source code:
 
 I actually changed the source code slightly to use the above call rather than "new ImageIcon([filePathHere)" or "createImageIcon([Stringpath], [Stringdescription])". It wouldn't work otherwise. See: https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html for an explanation.
+
+a
